@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens: המקום היחיד שבו מופיעים ערכי צבע.
+ * הפלטה של Tailwind מבוטלת (--color-*: initial), כך שרק הצבעים האלה קיימים
+ * כמחלקות. כשיהיו ליזם צבעי מותג, מחליפים רק כאן.
+ */
+@theme {
+  --color-*: initial;
+  --color-cream: #faf8f5;
+  --color-charcoal: #1c1c1c;
+  --color-warm-gray: #6b645c;
+  --color-accent: #b08d57;
+}
+
+/* הפונטים מגיעים כמשתנים מ-next/font ב-layout.tsx */
+@theme inline {
+  --font-serif: var(--font-frank-ruhl), "Times New Roman", serif;
+  --font-sans: var(--font-assistant), Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-cream text-charcoal font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif text-balance;
+  }
+
+  ::selection {
+    @apply bg-accent/25;
+  }
+
+  :focus-visible {
+    @apply outline-1 outline-offset-4 outline-accent;
+  }
+}
