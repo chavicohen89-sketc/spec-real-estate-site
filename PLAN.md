@@ -291,8 +291,8 @@ Claude מעדכן את הסעיף הזה בסוף כל שלב: מה נבנה, ה
 
 | שלב | סטטוס | תאריך | הערות |
 | --- | --- | --- | --- |
-| 0 | 🟡 | 2026-11-04 | יש Node 24, Git וריפו GitHub. חסרים Supabase CLI (נדרש לשלב 2), וחשבונות Supabase, Resend ו-Vercel שלא אומתו |
-| 1 | 🟡 | 2026-11-04 | נבנה: Next 16.4.5, Tailwind 4.3, RTL, פונטים, tokens, `strings.ts`, `site.ts`, Header/Footer/תפריט מובייל, Container/Section/Button/FadeIn, עמוד בית זמני, `.env.example`, Vitest. build/lint/typecheck/test עוברים, ונבדק בדפדפן ב-375 וב-1440. **נשאר:** פריסה ל-Vercel. החלטות: (1) פלטת הצבעים של Tailwind מבוטלת (`--color-*: initial`), כך שרק 4 ה-tokens קיימים כמחלקות; (2) כפתור ראשי בפחם, וההדגשה רק לקו ול-hover, בגלל ניגודיות (ממתין לאישור לפני עדכון האפיון); (3) `cacheComponents: true` מברירת המחדל של create-next-app 16.4 נשאר, ומשפיע על שליפת נתונים בשלב 3; (4) `@types/node` 24 כדי להתאים ל-Vitest 5 |
+| 0 | 🟡 | 2026-11-04 | יש Node 24, Git, ריפו GitHub ו-Vercel. חסרים Supabase CLI (נדרש לשלב 2), וחשבונות Supabase, Resend שלא אומתו |
+| 1 | ✅ | 2026-11-04 | פרוס ב-https://spec-real-estate-site.vercel.app (נבדק: RTL, פונטים, תפריט מובייל, בלי גלילה אופקית ב-375). נבנה: Next 16.4.5, Tailwind 4.3, RTL, פונטים, tokens, `strings.ts`, `site.ts`, Header/Footer/תפריט מובייל, Container/Section/Button/FadeIn, עמוד בית זמני, `.env.example`, Vitest. build/lint/typecheck/test עוברים, ונבדק בדפדפן ב-375 וב-1440. החלטות: (1) פלטת הצבעים של Tailwind מבוטלת (`--color-*: initial`), כך שרק 4 ה-tokens קיימים כמחלקות; (2) כפתור ראשי בפחם, וההדגשה רק לקו ול-hover, בגלל ניגודיות (ממתין לאישור לפני עדכון האפיון); (3) `cacheComponents: true` מברירת המחדל של create-next-app 16.4 נשאר, ומשפיע על שליפת נתונים בשלב 3; (4) `@types/node` 24 כדי להתאים ל-Vitest 5 |
 | 2 | ⬜ | | |
 | 3 | ⬜ | | |
 | 4 | ⬜ | | |
