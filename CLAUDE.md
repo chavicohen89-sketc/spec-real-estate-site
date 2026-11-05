@@ -20,7 +20,9 @@ npm run lint
 npm run typecheck
 npm test             # Vitest, בדיקות יחידה
 npm run db:types     # יצירת טיפוסים מחדש אחרי כל מיגרציה
-supabase db push     # החלת מיגרציות
+npm run db:push      # החלת מיגרציות (npx supabase db push; ה-CLI מותקן מקומית, לא גלובלית)
+npm run db:check-rls # בדיקת RLS עם המפתח הציבורי. להריץ אחרי כל מיגרציה שנוגעת בהרשאות
+npm run db:seed-images  # העלאת תמונות placeholder של ה-seed ל-Storage
 ```
 
 ## מבנה
@@ -66,7 +68,9 @@ supabase/seed.sql
 
 **מסד נתונים**
 - כל שינוי סכמה הוא קובץ מיגרציה חדש ב-`supabase/migrations/`. לא עורכים מיגרציה קיימת שכבר הוחלה.
-- RLS מופעל על כל טבלה. מדיניות של מנהלים משתמשת ב-`is_admin()`.
+- RLS מופעל על כל טבלה. מדיניות של מנהלים משתמשת ב-`(select public.is_admin())`.
+- **GRANT מפורש לכל טבלה חדשה.** ה-default privileges בוטלו ל-`anon`, כך שטבלה חדשה לא נגישה לציבור עד שנותנים לה GRANT. ל-`authenticated` צריך GRANT מפורש לפעולות שהמנהל עושה (ה-RLS מגביל ל-`is_admin()`).
+- סטטוסים כ-`text` עם `check`, לא `enum`. מייל נשמר באותיות קטנות (נאכף ב-`check`).
 - אחרי מיגרציה: `npm run db:types`.
 - פעולות "פעם אחת בלבד" (כמו מייל פרויקט חדש) נאכפות ב-SQL אטומי, לא בבדיקה ב-JavaScript.
 

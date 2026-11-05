@@ -112,7 +112,7 @@ Next.js עם Supabase ו-Resend, מאוחסן ב-Vercel: אין שרת לנהל,
 
 ## מבנה נתונים
 
-שמונה טבלאות ב-Supabase. הרשמה מופרדת מהנרשם עצמו, כך שאדם אחד יכול להירשם לכמה פרויקטים, ו-`project_id` ריק פירושו הרשמה כללית.
+עשר טבלאות ב-Supabase (שמונה עיקריות ושתיים טכניות). הרשמה מופרדת מהנרשם עצמו, כך שאדם אחד יכול להירשם לכמה פרויקטים, ו-`project_id` ריק פירושו הרשמה כללית.
 
 | טבלה | שדות עיקריים |
 | --- | --- |
@@ -124,6 +124,10 @@ Next.js עם Supabase ו-Resend, מאוחסן ב-Vercel: אין שרת לנהל,
 | `contact_messages` | id, full_name, email, phone, message, handled, created_at |
 | `site_content` | key (למשל about), body, image_path, updated_at |
 | `admin_roles` | user_id, role (admin/editor) |
+| `rate_limits` | key, window_start, count. הגבלת קצב לפי IP (service role בלבד) |
+| `campaign_recipients` | campaign_id, subscriber_id, status (pending/sent/failed), resend_id, error. מעקב שליחה לכל נמען (service role בלבד) |
+
+מחיקת פרויקט מוחקת את התמונות וההרשמות שלו. הנרשם עצמו נשאר, וקמפיין שהפנה לפרויקט נשמר בהיסטוריה עם `project_id` ריק.
 
 **אבטחה (RLS):** הציבור יכול לקרוא רק פרויקטים מפורסמים ותמונותיהם. כתיבה לנרשמים ולהודעות רק דרך Server Actions בצד השרת. כל השאר רק למנהלים. bucket התמונות ציבורי לקריאה, כתיבה למנהלים בלבד.
 
