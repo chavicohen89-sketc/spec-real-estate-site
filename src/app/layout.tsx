@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Assistant, Frank_Ruhl_Libre } from "next/font/google";
 import { siteConfig } from "@/config/site";
+import { siteUrl } from "@/lib/site-url";
 import { strings } from "@/lib/strings";
 import "./globals.css";
 
@@ -18,6 +19,12 @@ const assistant = Assistant({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl()),
+  openGraph: {
+    siteName: siteConfig.name,
+    locale: "he_IL",
+    type: "website",
+  },
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,

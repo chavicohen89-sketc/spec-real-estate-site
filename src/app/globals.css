@@ -49,3 +49,46 @@
     @apply outline-1 outline-offset-4 outline-accent;
   }
 }
+
+/* טקסט עשיר מהעורך (RichText): כותרות משנה, הדגשה, רשימות, קישורים, ציטוט */
+@layer components {
+  .rich-text {
+    @apply text-base leading-loose md:text-lg;
+  }
+
+  .rich-text > * + * {
+    @apply mt-5;
+  }
+
+  .rich-text h2 {
+    @apply mt-12 text-2xl font-light md:text-3xl;
+  }
+
+  .rich-text h3 {
+    @apply mt-10 text-xl md:text-2xl;
+  }
+
+  .rich-text strong {
+    @apply font-semibold;
+  }
+
+  .rich-text a {
+    @apply underline decoration-accent underline-offset-4 transition-colors hover:text-accent;
+  }
+
+  .rich-text ul {
+    @apply list-disc ps-6 marker:text-accent;
+  }
+
+  .rich-text ol {
+    @apply list-decimal ps-6 marker:text-accent;
+  }
+
+  .rich-text li + li {
+    @apply mt-2;
+  }
+
+  .rich-text blockquote {
+    @apply border-s border-accent ps-6 text-warm-gray;
+  }
+}

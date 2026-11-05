@@ -63,7 +63,9 @@ supabase/seed.sql
 - כל Server Action וכל Route Handler של הניהול בודק `is_admin` בעצמו. middleware/proxy הוא נוחות, לא אבטחה.
 - `src/lib/supabase/admin.ts` מתחיל ב-`import "server-only"`. ה-service role key לא מגיע לדפדפן לעולם.
 - Resend נקרא רק מתוך `src/server/email.ts`.
-- אחרי כל שינוי תוכן בניהול: `revalidatePath` או `revalidateTag` לעמודים הציבוריים שהושפעו.
+- אחרי כל שינוי תוכן בניהול: `updateTag` (ב-Server Action) עם התגים מ-`cacheTags` ב-`src/server/content.ts` (`projects`, `project:<slug>`, `site-content:<key>`). שינוי slug: לרענן גם את הישן וגם את החדש.
+- שליפות של האתר הציבורי רק דרך `src/server/content.ts` (`"use cache"` + לקוח anon בלי עוגיות).
+- טקסט עשיר: `renderRichText` ו-`richTextExtensions` מ-`src/lib/rich-text.ts`. העורך משתמש באותן הרחבות בדיוק.
 - לא להוסיף ספרייה בלי סיבה. אם מוסיפים, לכתוב למה בסיכום השלב.
 
 **מסד נתונים**
