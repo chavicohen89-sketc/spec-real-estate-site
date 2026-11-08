@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { siteUrl } from "@/lib/site-url";
 import { strings } from "@/lib/strings";
@@ -43,9 +44,12 @@ export async function forgotPasswordAction(
     return { status: "error", fieldErrors: toFieldErrors(parsed.error) };
   }
 
+  // הקישור חוזר לאתר שממנו ביקשו (מקומי, Vercel או הדומיין). Supabase מאשר רק כתובות מרשימת Redirect URLs
+  const origin = (await headers()).get("origin") ?? siteUrl();
+
   const supabase = await createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(parsed.data.email, {
-    redirectTo: `${siteUrl()}/admin/auth/callback`,
+    redirectTo: `${origin}/admin/auth/callback`,
   });
   // תמיד "הצלחה": לא חושפים אילו כתובות רשומות
   if (error) console.error("resetPasswordForEmail failed", error.code);
