@@ -201,6 +201,7 @@ export type Database = {
           cover_image_path: string | null
           created_at: string
           id: string
+          launch_email_requested: boolean
           launch_email_sent_at: string | null
           published_at: string | null
           slug: string
@@ -214,6 +215,7 @@ export type Database = {
           cover_image_path?: string | null
           created_at?: string
           id?: string
+          launch_email_requested?: boolean
           launch_email_sent_at?: string | null
           published_at?: string | null
           slug: string
@@ -227,6 +229,7 @@ export type Database = {
           cover_image_path?: string | null
           created_at?: string
           id?: string
+          launch_email_requested?: boolean
           launch_email_sent_at?: string | null
           published_at?: string | null
           slug?: string
@@ -364,6 +367,15 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: never; Returns: boolean }
+      publish_project: {
+        Args: { p_id: string; p_send_launch_email: boolean }
+        Returns: boolean
+      }
+      reorder_project_images: {
+        Args: { p_ids: string[]; p_project_id: string }
+        Returns: undefined
+      }
+      reorder_projects: { Args: { p_ids: string[] }; Returns: undefined }
       upsert_subscription: {
         Args: {
           p_email: string

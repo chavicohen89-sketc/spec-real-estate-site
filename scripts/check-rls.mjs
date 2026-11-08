@@ -121,6 +121,26 @@ for (const table of [
   check("anon לא מריץ את upsert_subscription", !!r.error, r.error?.code ?? "הצליח!");
 }
 
+// --- פונקציות של ממשק הניהול ---
+{
+  const r = await anon.rpc("publish_project", {
+    p_id: DRAFT_ID,
+    p_send_launch_email: false,
+  });
+  check("anon לא מריץ את publish_project", !!r.error, r.error?.code ?? "הצליח!");
+}
+{
+  const r = await anon.rpc("reorder_projects", { p_ids: [DRAFT_ID] });
+  check("anon לא מריץ את reorder_projects", !!r.error, r.error?.code ?? "הצליח!");
+}
+{
+  const r = await anon.rpc("reorder_project_images", {
+    p_project_id: DRAFT_ID,
+    p_ids: [],
+  });
+  check("anon לא מריץ את reorder_project_images", !!r.error, r.error?.code ?? "הצליח!");
+}
+
 // --- Storage ---
 {
   const r = await anon.storage

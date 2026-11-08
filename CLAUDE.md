@@ -23,6 +23,7 @@ npm run db:types     # יצירת טיפוסים מחדש אחרי כל מיגר
 npm run db:push      # החלת מיגרציות (npx supabase db push; ה-CLI מותקן מקומית, לא גלובלית)
 npm run db:check-rls # בדיקת RLS עם המפתח הציבורי. להריץ אחרי כל מיגרציה שנוגעת בהרשאות
 npm run db:seed-images  # העלאת תמונות placeholder של ה-seed ל-Storage
+npm run create-admin -- email@x.com  # יצירת מנהל (משתמש חדש מקבל סיסמה זמנית)
 ```
 
 ## מבנה
@@ -56,6 +57,7 @@ supabase/seed.sql
 - צבעים רק דרך ה-tokens (`cream`, `charcoal`, `warm-gray`, `accent`). אין hex בקומפוננטות.
 - עיצוב האתר הציבורי: הרבה אוויר, קווים דקים במקום צללים, פינות כמעט ישרות, תנועה עדינה בלבד. מובייל קודם.
 - תמונות רק דרך `next/image`, עם `sizes`.
+- רכיבי shadcn נמצאים ב-`src/components/admin/ui`, וממופים ל-4 ה-tokens ב-`globals.css`. רכיב חדש מה-CLI: להסיר `dark:`, להחליף `bg-accent` ב-`bg-muted` ו-`left`/`right` במקבילות לוגיות, ולייבא `cn` מ-`@/lib/utils`.
 
 **ארכיטקטורה**
 - Server Components כברירת מחדל. `"use client"` רק כשבאמת צריך אינטראקציה.

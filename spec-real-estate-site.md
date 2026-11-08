@@ -86,6 +86,7 @@ Next.js עם Supabase ו-Resend, מאוחסן ב-Vercel: אין שרת לנהל,
     - טקסט עם עורך בסיסי: כותרות משנה, הדגשה, רשימות, קישורים.
     - תמונה ראשית: העלאה, תצוגה מקדימה, החלפה.
     - גלריה: העלאת כמה תמונות יחד, שינוי סדר בגרירה, מחיקה.
+    - תמונות נשמרות מיד, גם בפרויקט מפורסם. כותרת וטקסט נשמרים בכפתור. פרסום דורש תמונה ראשית.
     - כפתורים: "שמור טיוטה" ו"פרסם". בפרסום ראשון מופיע אישור: "לשלוח מייל לנרשמים הכלליים?" (מסומן כברירת מחדל).
 3. **נרשמים:** טבלה עם שם, אימייל, טלפון, למה רשום (כללי / שמות פרויקטים), הסכמה לווטסאפ, תאריך, סטטוס. חיפוש, סינון לפי פרויקט וסטטוס, וייצוא CSV שנפתח נכון באקסל בעברית (UTF-8 עם BOM).
 4. **שליחת מייל:** נושא, תוכן בעורך, בחירת קהל (כל הנרשמים / כלליים בלבד / נרשמי פרויקט מסוים). תצוגה מקדימה, שליחת בדיקה לעצמי, ואז שליחה עם אישור שמציג את מספר הנמענים.
@@ -118,7 +119,7 @@ Next.js עם Supabase ו-Resend, מאוחסן ב-Vercel: אין שרת לנהל,
 
 | טבלה | שדות עיקריים |
 | --- | --- |
-| `projects` | id, title, slug (ייחודי), body (rich text/JSON), cover_image_path, status (draft/published), sort_order, published_at, launch_email_sent_at, created_at, updated_at |
+| `projects` | id, title, slug (ייחודי), body (rich text/JSON), cover_image_path, status (draft/published), sort_order, published_at, launch_email_requested, launch_email_sent_at, created_at, updated_at |
 | `project_images` | id, project_id, image_path, alt, sort_order |
 | `subscribers` | id, full_name, email (ייחודי), phone, email_consent_at, whatsapp_consent_at (nullable), unsubscribe_token, unsubscribed_at, source_ip, created_at |
 | `subscriptions` | id, subscriber_id, project_id (nullable = כללי), created_at. ייחודיות על הצירוף |
