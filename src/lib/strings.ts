@@ -61,8 +61,51 @@ export const strings = {
     counter: (n: number, total: number) => `${n} / ${total}`,
   },
 
-  // מקום שמור לטופס: יוחלף בטופס האמיתי בשלב 4
-  formPlaceholder: "כאן יופיע הטופס",
+  forms: {
+    fullName: "שם מלא",
+    email: "אימייל",
+    phone: "טלפון נייד",
+    phoneOptional: "טלפון (לא חובה)",
+    message: "הודעה",
+    honeypot: "לא למלא",
+    errors: {
+      fullName: "נא למלא שם מלא",
+      fullNameTooLong: "השם ארוך מדי",
+      email: "נא למלא כתובת אימייל תקינה",
+      phone: "נא למלא מספר נייד ישראלי תקין",
+      emailConsent: "כדי להירשם צריך לאשר קבלת עדכונים במייל",
+      message: "נא לכתוב הודעה",
+      messageTooLong: "ההודעה ארוכה מדי",
+      rateLimited: "נשלחו יותר מדי פניות בזמן קצר. נסו שוב בעוד שעה.",
+      generic: "משהו השתבש, והפרטים לא נשמרו. נסו שוב בעוד רגע.",
+    },
+    subscribe: {
+      emailConsent: "אני מאשר/ת לקבל עדכונים ודיוור במייל",
+      whatsappConsent: "אני מאשר/ת לקבל עדכונים גם בווטסאפ",
+      submit: "להרשמה",
+      submitting: "שולח…",
+      successTitle: "תודה שנרשמתם",
+      successBody: "קיבלנו את הפרטים, ונעדכן אתכם בקרוב.",
+    },
+    contact: {
+      submit: "שליחה",
+      submitting: "שולח…",
+      successTitle: "ההודעה נשלחה",
+      successBody: "תודה שפניתם אלינו. נחזור אליכם בהקדם.",
+    },
+  },
+
+  unsubscribe: {
+    title: "הסרה מרשימת התפוצה",
+    description: "הסרה מרשימת העדכונים במייל.",
+    lead: "בלחיצה על הכפתור לא תקבלו מאיתנו יותר עדכונים ודיוור.",
+    submit: "הסר אותי",
+    submitting: "מסיר…",
+    successTitle: "הוסרתם מהרשימה",
+    successBody: "לא נשלח לכם יותר עדכונים. תמיד אפשר להירשם מחדש דרך האתר.",
+    invalidLink: "הקישור להסרה אינו תקין. אפשר להשתמש בקישור שבמייל האחרון שקיבלתם, או לפנות אלינו.",
+    home: "לעמוד הבית",
+  },
 
   about: {
     title: "אודות",

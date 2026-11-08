@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import { ContactForm } from "@/components/site/ContactForm";
 import { Container } from "@/components/site/Container";
 import { FadeIn } from "@/components/site/FadeIn";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Section } from "@/components/site/Section";
-import { FormPlaceholder } from "@/components/site/SubscribeSection";
 import { siteConfig } from "@/config/site";
 import { strings } from "@/lib/strings";
 
@@ -53,7 +53,7 @@ export default function ContactPage() {
             <h2 className="text-xs font-sans tracking-[0.18em] text-warm-gray">
               {t.formTitle}
             </h2>
-            <FormPlaceholder />
+            <ContactForm />
           </FadeIn>
         </Container>
       </Section>

@@ -102,6 +102,25 @@ for (const table of [
   check("is_admin() מחזיר false ל-anon", !r.error && r.data === false, r.error?.code ?? String(r.data));
 }
 
+// --- פונקציות של השרת בלבד ---
+{
+  const r = await anon.rpc("check_rate_limit", {
+    p_key: "rls-check",
+    p_limit: 5,
+    p_window_seconds: 3600,
+  });
+  check("anon לא מריץ את check_rate_limit", !!r.error, r.error?.code ?? "הצליח!");
+}
+{
+  const r = await anon.rpc("upsert_subscription", {
+    p_full_name: "בדיקת RLS",
+    p_email: "rls-check@example.com",
+    p_phone: "+972501234567",
+    p_whatsapp_consent: false,
+  });
+  check("anon לא מריץ את upsert_subscription", !!r.error, r.error?.code ?? "הצליח!");
+}
+
 // --- Storage ---
 {
   const r = await anon.storage

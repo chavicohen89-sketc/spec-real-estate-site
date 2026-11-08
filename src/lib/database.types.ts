@@ -359,7 +359,25 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_rate_limit: {
+        Args: { p_key: string; p_limit: number; p_window_seconds: number }
+        Returns: boolean
+      }
       is_admin: { Args: never; Returns: boolean }
+      upsert_subscription: {
+        Args: {
+          p_email: string
+          p_full_name: string
+          p_phone: string
+          p_project_id?: string
+          p_source_ip?: string
+          p_whatsapp_consent: boolean
+        }
+        Returns: {
+          is_new_subscription: boolean
+          subscriber_id: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
