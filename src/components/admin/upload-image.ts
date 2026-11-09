@@ -6,14 +6,18 @@ import { createClient } from "@/lib/supabase/client";
  * מקטינה ומעלה תמונה ישירות מהדפדפן ל-Storage (ההרשאה מגיעה מ-RLS של המנהל),
  * כי ל-Server Actions ב-Vercel יש מגבלת גודל. מחזירה את הנתיב.
  */
-export async function uploadProjectImage(projectId: string, file: File): Promise<string> {
+export async function uploadImage(folder: string, file: File): Promise<string> {
   const { blob, extension } = await resizeImage(file);
-  const path = `projects/${projectId}/${crypto.randomUUID()}.${extension}`;
+  const path = `${folder}/${crypto.randomUUID()}.${extension}`;
   const { error } = await createClient()
     .storage.from(IMAGES_BUCKET)
     .upload(path, blob, { contentType: blob.type, cacheControl: "31536000" });
   if (error) throw error;
   return path;
+}
+
+export function uploadProjectImage(projectId: string, file: File): Promise<string> {
+  return uploadImage(`projects/${projectId}`, file);
 }
 
 /** מחיקת קובץ שהועלה אבל לא נקשר לפרויקט (השמירה נכשלה) */

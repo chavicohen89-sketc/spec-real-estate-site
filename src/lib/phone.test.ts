@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizeIsraeliPhone } from "./phone";
+import { formatLocalPhone, normalizeIsraeliPhone } from "./phone";
 
 describe("normalizeIsraeliPhone", () => {
   it.each([
@@ -42,5 +42,11 @@ describe("normalizeIsraeliPhone", () => {
     "0501234567 ext 5",
   ])("דוחה את %j", (input) => {
     expect(normalizeIsraeliPhone(input)).toBeNull();
+  });
+});
+
+describe("formatLocalPhone", () => {
+  it("מחזיר פורמט מקומי עם מקף", () => {
+    expect(formatLocalPhone("+972501234567")).toBe("050-1234567");
   });
 });

@@ -12,7 +12,8 @@ import {
   type ProjectField,
 } from "@/lib/validation/admin";
 import { toFieldErrors } from "@/lib/validation/form-state";
-import { NotAdminError, requireAdmin, type AdminDb } from "@/server/auth";
+import { asAdmin, failure, type ActionFailure } from "@/server/admin-action";
+import type { AdminDb } from "@/server/auth";
 import { cacheTags } from "@/server/content";
 import {
   addGalleryImage,
@@ -29,29 +30,13 @@ import {
   type AdminGalleryImage,
 } from "@/server/projects";
 
-const common = strings.admin.common;
 const editor = strings.admin.editor;
 
-type Failure = {
-  ok: false;
-  error: string;
+type Failure = ActionFailure & {
   fieldErrors?: Partial<Record<ProjectField, string>>;
 };
 
 export type ActionResult<T = object> = ({ ok: true } & T) | Failure;
-
-const failure = (error: string = common.genericError): Failure => ({ ok: false, error });
-
-/** כל Action עובר כאן: בדיקת is_admin, ותרגום שגיאות להודעה בעברית */
-async function asAdmin<R>(run: (db: AdminDb) => Promise<R>): Promise<R | Failure> {
-  try {
-    return await run(await requireAdmin());
-  } catch (error) {
-    if (error instanceof NotAdminError) return failure(common.noPermission);
-    console.error("admin action failed", error);
-    return failure();
-  }
-}
 
 function refreshProject(...slugs: (string | null | undefined)[]) {
   updateTag(cacheTags.projects);

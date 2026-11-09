@@ -9,6 +9,7 @@ import {
   deleteProjectAction,
   publishProjectAction,
   saveProjectAction,
+  setCoverImageAction,
   unpublishProjectAction,
 } from "@/app/admin/(panel)/projects/actions";
 import {
@@ -31,8 +32,8 @@ import { slugify } from "@/lib/slug";
 import { strings } from "@/lib/strings";
 import type { ProjectField } from "@/lib/validation/admin";
 import type { AdminProject } from "@/server/projects";
-import { CoverImagePicker } from "./CoverImagePicker";
 import { GalleryManager } from "./GalleryManager";
+import { ImagePicker } from "./ImagePicker";
 import { RichTextEditor } from "./RichTextEditor";
 
 const t = strings.admin.editor;
@@ -220,7 +221,13 @@ export function ProjectEditor({ project }: { project: AdminProject }) {
         {fieldErrors.body && <p className="text-sm">{fieldErrors.body}</p>}
       </div>
 
-      <CoverImagePicker projectId={project.id} path={coverPath} onChange={setCoverPath} />
+      <ImagePicker
+        folder={`projects/${project.id}`}
+        path={coverPath}
+        labels={{ heading: t.cover, empty: t.coverEmpty, upload: t.coverUpload, replace: t.coverReplace }}
+        save={(path) => setCoverImageAction(project.id, path)}
+        onChange={setCoverPath}
+      />
       <GalleryManager projectId={project.id} initialImages={project.images} />
 
       <div className="flex flex-wrap items-center gap-3 border-t pt-6">

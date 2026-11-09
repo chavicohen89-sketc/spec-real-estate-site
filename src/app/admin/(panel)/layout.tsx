@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { AdminHeader } from "@/components/admin/AdminShell";
 import { strings } from "@/lib/strings";
 import { getAdminState } from "@/server/auth";
+import { countUnhandledMessages } from "@/server/messages";
 
 async function AdminGate({ children }: { children: React.ReactNode }) {
   const state = await getAdminState();
@@ -20,9 +21,11 @@ async function AdminGate({ children }: { children: React.ReactNode }) {
     );
   }
 
+  const unhandledMessages = await countUnhandledMessages(state.supabase);
+
   return (
     <>
-      <AdminHeader showNav />
+      <AdminHeader showNav unhandledMessages={unhandledMessages} />
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</main>
     </>
   );

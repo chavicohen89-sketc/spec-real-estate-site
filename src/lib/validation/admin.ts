@@ -54,6 +54,10 @@ export const projectSchema = z.object({
 export type ProjectInput = z.infer<typeof projectSchema>;
 export type ProjectField = keyof ProjectInput;
 
+export const aboutBodySchema = richTextDoc.nullable();
+
+export const messageHandledSchema = z.boolean();
+
 export const idSchema = z.uuid();
 export const idListSchema = z.array(idSchema).max(500);
 export const imageAltSchema = z.string().trim().max(300, editor.altTooLong);
@@ -62,4 +66,9 @@ export const imageAltSchema = z.string().trim().max(300, editor.altTooLong);
 export function isProjectImagePath(projectId: string, path: string): boolean {
   return /^[a-zA-Z0-9-]+\.(webp|jpg)$/.test(path.slice(`projects/${projectId}/`.length))
     && path.startsWith(`projects/${projectId}/`);
+}
+
+/** נתיב קובץ של עמוד אודות */
+export function isAboutImagePath(path: string): boolean {
+  return /^about\/[a-zA-Z0-9-]+\.(webp|jpg)$/.test(path);
 }

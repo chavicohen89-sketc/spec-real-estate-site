@@ -6,15 +6,40 @@ import { strings } from "@/lib/strings";
 
 const t = strings.admin.shell;
 
-export function AdminHeader({ showNav }: { showNav: boolean }) {
+const NAV_LINK = "hover:underline";
+
+type Props = {
+  showNav: boolean;
+  unhandledMessages?: number;
+};
+
+export function AdminHeader({ showNav, unhandledMessages = 0 }: Props) {
   return (
     <header className="border-b">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
         <span className="font-serif text-lg">{siteConfig.name}</span>
         {showNav && (
-          <nav aria-label={t.navLabel} className="flex gap-4 text-sm">
-            <Link href="/admin/projects" className="hover:underline">
+          <nav aria-label={t.navLabel} className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+            <Link href="/admin/projects" className={NAV_LINK}>
               {t.projects}
+            </Link>
+            <Link href="/admin/subscribers" className={NAV_LINK}>
+              {t.subscribers}
+            </Link>
+            <Link href="/admin/messages" className={`${NAV_LINK} inline-flex items-center gap-1.5`}>
+              {t.messages}
+              {unhandledMessages > 0 && (
+                <span
+                  aria-label={t.unhandledCount(unhandledMessages)}
+                  data-testid="unhandled-count"
+                  className="rounded-full bg-primary px-1.5 text-xs leading-5 text-primary-foreground"
+                >
+                  {unhandledMessages}
+                </span>
+              )}
+            </Link>
+            <Link href="/admin/about" className={NAV_LINK}>
+              {t.about}
             </Link>
           </nav>
         )}
