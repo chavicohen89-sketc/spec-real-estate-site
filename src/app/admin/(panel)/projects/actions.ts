@@ -13,8 +13,9 @@ import {
 } from "@/lib/validation/admin";
 import { toFieldErrors } from "@/lib/validation/form-state";
 import { asAdmin, failure, type ActionFailure } from "@/server/admin-action";
-import type { AdminDb } from "@/server/auth";
+import { requireAdminUser, type AdminDb } from "@/server/auth";
 import { cacheTags } from "@/server/content";
+import { sendProjectLaunchEmail } from "@/server/email";
 import {
   addGalleryImage,
   createProject,
@@ -112,7 +113,7 @@ export async function publishProjectAction(
   id: string,
   input: unknown,
   sendLaunchEmail: boolean,
-): Promise<ActionResult> {
+): Promise<ActionResult<{ warning?: string }>> {
   return asAdmin(async (db) => {
     const projectId = idSchema.parse(id);
     const saved = await save(db, projectId, input);
@@ -120,7 +121,13 @@ export async function publishProjectAction(
     const published = await publishProject(db, projectId, sendLaunchEmail === true);
     refreshProject(...saved.slugs);
     if (!published) return failure(editor.coverRequired);
-    return { ok: true as const };
+
+    // השאלה נשמרה במסד בפרסום הראשון. כאן נבדק אם צריך לשלוח, פעם אחת בלבד
+    const { userId } = await requireAdminUser();
+    const launch = await sendProjectLaunchEmail(projectId, userId);
+    return launch === "failed"
+      ? { ok: true as const, warning: editor.launchEmailFailed }
+      : { ok: true as const };
   });
 }
 

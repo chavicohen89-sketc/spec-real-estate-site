@@ -51,8 +51,16 @@ export async function forgotPasswordAction(
   const { error } = await supabase.auth.resetPasswordForEmail(parsed.data.email, {
     redirectTo: `${origin}/admin/auth/callback`,
   });
-  // תמיד "הצלחה": לא חושפים אילו כתובות רשומות
-  if (error) console.error("resetPasswordForEmail failed", error.code);
+  // שורה לכל בקשה, בלי המייל: כך אפשר לראות ב-Runtime Logs אם הבקשה הגיעה ומה חזר
+  console.info("[auth] password recovery requested", {
+    redirectHost: new URL(origin).host,
+    error: error?.code ?? null,
+  });
+  // חריגה מהמכסה לא קשורה לכתובת מסוימת, ולכן בטוח לומר אותה
+  if (error?.code === "over_email_send_rate_limit") {
+    return { status: "error", formError: t.emailRateLimit };
+  }
+  // בשאר המקרים תמיד "הצלחה": לא חושפים אילו כתובות רשומות
   return { status: "success" };
 }
 

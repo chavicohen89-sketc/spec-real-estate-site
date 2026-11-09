@@ -29,7 +29,7 @@ export type NewPasswordField = "password" | "confirm";
 const MAX_BODY_CHARS = 200_000;
 
 /** מסמך Tiptap: בודקים מבנה בסיסי וגודל. הרינדור עצמו מסנן קישורים לא בטוחים */
-const richTextDoc = z
+export const richTextDoc = z
   .looseObject({
     type: z.literal("doc"),
     content: z.array(z.unknown()).optional(),

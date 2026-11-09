@@ -19,6 +19,7 @@ npm run build        # חייב לעבור לפני כל commit
 npm run lint
 npm run typecheck
 npm test             # Vitest, בדיקות יחידה
+npm run email:dev    # תצוגה מקדימה של תבניות המייל (פורט 3001)
 npm run db:types     # יצירת טיפוסים מחדש אחרי כל מיגרציה
 npm run db:push      # החלת מיגרציות (npx supabase db push; ה-CLI מותקן מקומית, לא גלובלית)
 npm run db:check-rls # בדיקת RLS עם המפתח הציבורי. להריץ אחרי כל מיגרציה שנוגעת בהרשאות
@@ -54,7 +55,7 @@ supabase/seed.sql
 
 **RTL ועיצוב**
 - רק מחלקות לוגיות: `ms-`/`me-`/`ps-`/`pe-`/`start-`/`end-`/`text-start`. לעולם לא `ml-`/`mr-`/`left-`/`right-`/`text-left`.
-- צבעים רק דרך ה-tokens (`cream`, `charcoal`, `warm-gray`, `accent`). אין hex בקומפוננטות.
+- צבעים רק דרך ה-tokens (`cream`, `charcoal`, `warm-gray`, `accent`). אין hex בקומפוננטות. חריג יחיד: מיילים, שבהם הערכים מרוכזים ב-`src/emails/_shared/theme.ts`, כי תוכנות דואר לא תומכות במשתני CSS.
 - עיצוב האתר הציבורי: הרבה אוויר, קווים דקים במקום צללים, פינות כמעט ישרות, תנועה עדינה בלבד. מובייל קודם.
 - תמונות רק דרך `next/image`, עם `sizes`.
 - רכיבי shadcn נמצאים ב-`src/components/admin/ui`, וממופים ל-4 ה-tokens ב-`globals.css`. רכיב חדש מה-CLI: להסיר `dark:`, להחליף `bg-accent` ב-`bg-muted` ו-`left`/`right` במקבילות לוגיות, ולייבא `cn` מ-`@/lib/utils`.

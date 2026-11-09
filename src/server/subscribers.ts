@@ -1,4 +1,5 @@
 import "server-only";
+import { after } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { SubscribeInput } from "@/lib/validation/subscribe";
 import { sendWelcomeEmail } from "./email";
@@ -28,7 +29,8 @@ export async function subscribe(
 
   // מי שכבר רשום לאותו דבר לא מקבל שוב "ברוכים הבאים"
   if (data.is_new_subscription) {
-    await sendWelcomeEmail(data.subscriber_id, input.projectId);
+    const subscriberId = data.subscriber_id;
+    after(() => sendWelcomeEmail(subscriberId, input.projectId)); // הטופס לא מחכה ל-Resend
   }
   return "ok";
 }

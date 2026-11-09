@@ -31,6 +31,30 @@ function isDoc(value: unknown): value is JSONContent {
   );
 }
 
+function nodeText(node: JSONContent): string {
+  if (node.type === "text") return node.text ?? "";
+  return (node.content ?? []).map(nodeText).join("");
+}
+
+/** הטקסט הגולמי של המסמך, בלי עיצוב. פסקאות מופרדות ברווח */
+export function richTextPlainText(content: unknown): string {
+  if (!isDoc(content)) return "";
+  return (content.content ?? [])
+    .map(nodeText)
+    .filter((text) => text.trim() !== "")
+    .join(" ")
+    .trim();
+}
+
+/** קטע קצר לתצוגה (למשל במייל פרויקט), שנחתך בגבול מילה */
+export function richTextExcerpt(content: unknown, maxChars = 220): string {
+  const text = richTextPlainText(content);
+  if (text.length <= maxChars) return text;
+  const cut = text.slice(0, maxChars);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${(lastSpace > 0 ? cut.slice(0, lastSpace) : cut).trimEnd()}…`;
+}
+
 /**
  * ממיר JSON של Tiptap ל-HTML. פונקציה אחת משותפת לאתר ולמיילים.
  * תוכן ריק או פגום מחזיר מחרוזת ריקה במקום להפיל את העמוד.

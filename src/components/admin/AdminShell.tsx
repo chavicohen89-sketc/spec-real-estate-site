@@ -41,6 +41,12 @@ export function AdminHeader({ showNav, unhandledMessages = 0 }: Props) {
             <Link href="/admin/about" className={NAV_LINK}>
               {t.about}
             </Link>
+            <Link href="/admin/email" className={NAV_LINK}>
+              {t.email}
+            </Link>
+            <Link href="/admin/email/history" className={NAV_LINK}>
+              {t.emailHistory}
+            </Link>
           </nav>
         )}
         <div className="ms-auto flex items-center gap-2">

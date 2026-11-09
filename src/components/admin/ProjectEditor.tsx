@@ -77,7 +77,7 @@ export function ProjectEditor({ project }: { project: AdminProject }) {
 
   /** מריץ פעולת שמירה ומעדכן את המסך לפי התוצאה */
   function persist(
-    action: () => ReturnType<typeof saveProjectAction>,
+    action: () => ReturnType<typeof publishProjectAction>,
     message: string,
     onSuccess?: () => void,
   ) {
@@ -92,7 +92,8 @@ export function ProjectEditor({ project }: { project: AdminProject }) {
       setDirty(false);
       setSavedSlug(slug);
       onSuccess?.();
-      toast.success(message);
+      if (result.warning) toast.warning(result.warning);
+      else toast.success(message);
     });
   }
 

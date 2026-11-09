@@ -39,6 +39,13 @@ export async function requireAdmin(): Promise<AdminDb> {
   return state.supabase;
 }
 
+/** מזהה וכתובת של המנהל המחובר */
+export async function requireAdminUser(): Promise<{ userId: string; email: string }> {
+  const state = await getAdminState();
+  if (state.status !== "admin") throw new NotAdminError();
+  return { userId: state.userId, email: state.email };
+}
+
 /** לכל עמוד של הניהול: מפנה מי שאינו מנהל */
 export async function requireAdminPage(): Promise<AdminDb> {
   const state = await getAdminState();
